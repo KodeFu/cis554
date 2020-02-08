@@ -1,3 +1,14 @@
+/*
+	Mudit Vats
+	CIS 554 - M401 Object Oriented Programming in C++
+	Syracuse University
+	HW #3 - Exercise 5.16 p206-207
+	2 / 8 / 20
+
+	This class defines the members and function prototypes for the BarChart
+	class which is used to store the value and display barcharts.
+
+*/
 #pragma once
 class BarChart
 {
@@ -9,22 +20,14 @@ public:
 	int getNumElements();
 	void setNumElements(int numElements);
 
-	// getter and setter for graph character; default is asterick '*'
-	char getGraphCharacter();
-	void setGraphCharacter(char graphCharacter);
-
 	// display bar chart
 	void displayChart();
-
-	
-
 
 private:
 	// validator function
 	bool validateElements();
 
 	// member variabiles
-	char _graphCharacter;
 	int _numElements;
 };
 
