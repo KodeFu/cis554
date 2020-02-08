@@ -27,8 +27,9 @@ int main()
     int barChartValue;
 
     // print an awesome title
-    std::cout << "Greatest Bar Chart Program EVER!!!" << endl;
-    std::cout << "Enter a value and this program with plot the corresponding bar chart." << endl;
+    cout << "*************************************************" << endl;
+    cout << "Welcome to the Greatest Bar Chart Program EVER!!!" << endl;
+    cout << "*************************************************" << endl;
     
     // get user input
     cout << endl << "Chart input" << endl;
