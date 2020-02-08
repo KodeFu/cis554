@@ -12,6 +12,7 @@
 #include "BarChart.h"
 
 #include <iostream>
+#include <iomanip>
 
 using std::cout;
 using std::endl;
@@ -39,7 +40,7 @@ void BarChart::setNumElements(int numElements)
 // validate elements range
 bool BarChart::validateElements()
 {
-	if ((_numElements < 0) || (_numElements > 30))
+	if ((_numElements < 1) || (_numElements > 30))
 	{
 		return false;
 	}
@@ -50,7 +51,7 @@ bool BarChart::validateElements()
 // display bar chart
 void BarChart::displayChart()
 {
-	cout << _numElements << ": "; 
+	cout << std::setfill('0') << std::setw(2) <<_numElements << ": ";
 
 	// check for valid element range
 	if (!validateElements())
