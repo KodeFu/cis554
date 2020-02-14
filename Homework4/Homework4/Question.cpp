@@ -7,8 +7,14 @@ using std::to_string;
 Question::Question(int difficulty)
 	: _difficulty{difficulty}
 {	
-	int digitSizeDivisor;
 	srand(time(NULL));
+
+	generateRandoms();
+}
+
+void Question::generateRandoms()
+{
+	int digitSizeDivisor;
 
 	switch (_difficulty)
 	{
@@ -34,6 +40,13 @@ string Question::getQuestion()
 	string question = "How much is " + to_string(_left) + " times " + to_string(_right) + "? ";
 
 	return question;
+}
+
+string Question::getNewQuestion()
+{
+	generateRandoms();
+
+	return getQuestion();
 }
 
 bool Question::isAnswerCorrect(int guess)
