@@ -1,3 +1,14 @@
+/*
+	Mudit Vats
+	CIS 554 - M401 Object Oriented Programming in C++
+	Syracuse University
+	HW #4 - Exercise 6.54-6.61 p281-282
+	2 / 15 / 20
+
+	This class defines the members and function prototypes for the Questions
+	class which is used to generate question, calculate answers and 
+	check answers.
+*/
 #pragma once
 #include <string>
 

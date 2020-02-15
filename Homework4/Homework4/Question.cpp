@@ -1,15 +1,29 @@
+/*
+	Mudit Vats
+	CIS 554 - M401 Object Oriented Programming in C++
+	Syracuse University
+	HW #4 - Exercise 6.54-6.61 p281-282
+	2 / 15 / 20
+
+	This class defines the members and function prototypes for the Questions
+	class which is used to generate question, calculate answers and
+	check answers.
+*/
+
 #include "Question.h"
 #include <iostream>
 #include <ctime>
 
 using std::to_string;
 
+// constructor
 Question::Question(int difficulty, int problemType)
 	: _difficulty{ difficulty }, _problemType{ problemType }, _left{ 0 }, _right{ 0 }
 {	
 	srand(time(NULL));
 }
 
+// function to randomize (change) question
 void Question::randomizeQuestion()
 {
 	int digitSizeDivisor;
@@ -45,6 +59,7 @@ void Question::randomizeQuestion()
 	}
 }
 
+// function to return the formatted question 
 string Question::getQuestion()
 {
 	string operationText;
@@ -71,6 +86,7 @@ string Question::getQuestion()
 	return question;
 }
 
+// functin to check if answer is correct
 bool Question::isAnswerCorrect(int guess)
 {
 	if (guess == getAnswer())
@@ -81,6 +97,7 @@ bool Question::isAnswerCorrect(int guess)
 	return false;
 }
 
+// fundtion to get the answer based on operation
 int Question::getAnswer()
 {
 	int answer;

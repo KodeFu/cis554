@@ -1,12 +1,24 @@
+/*
+	Mudit Vats
+	CIS 554 - M401 Object Oriented Programming in C++
+	Syracuse University
+	HW #4 - Exercise 6.54-6.61 p281-282
+	2 / 15 / 20
+
+	This class defines the members and function prototypes for the Response
+	class which is used to generate witty responses for ecouragement.
+*/
 #include "Response.h"
 #include <iostream>
 #include <ctime>
 
+// constructor
 Response::Response()
 {
 	srand(time(NULL));
 }
 
+// return response text based on correct or incorrect answer
 string Response::getResponse(bool correctAnswer)
 {
 	int randomResponse = rand() % 4;
@@ -21,6 +33,7 @@ string Response::getResponse(bool correctAnswer)
 	}
 }
 
+// return response text for correct answer
 string Response::getCorrectResponse(int choice)
 {
 	string response;
@@ -45,6 +58,7 @@ string Response::getCorrectResponse(int choice)
 	return response;
 }
 
+// return response text for incorrect answer
 string Response::getIncorrectResponse(int choice)
 {
 	string response;
