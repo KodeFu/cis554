@@ -12,6 +12,7 @@ int main()
     int answer;
     bool isCorrect;
     int difficulty;
+    int problemType;
     bool quit = false;
     Response response;
    
@@ -33,6 +34,11 @@ int main()
         cout << "Hi, I'm CAIB, your Computer-Assisted Instruction Bot!" << endl << endl;
         cout << "** Please enter -1 at anytime to quit. **" << endl << endl;
 
+        /////////////////////////////////////////////////
+        //
+        // Get difficulty
+        //
+        /////////////////////////////////////////////////
         cout << "What's your pain... I mean difficulty (1=easy, 2=moderate, 3=hard)? ";
         cin >> difficulty;
 
@@ -53,8 +59,41 @@ int main()
             continue;
         }
 
+
+        /////////////////////////////////////////////////
+        //
+        // Get problem type
+        //
+        /////////////////////////////////////////////////
+        cout << "What's your problem... type? (1=add, 2=subtract, 3=multiply, 4=divide, 5=random)? ";
+        cin >> problemType;
+
+        // check for cin 
+        while (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(std::numeric_limits<int>::max(), '\n');
+            cout << "BEEP! Enter 1 for add, 2 for subtract, 3 for multiply, 4 for divide, or 5 for random? ";
+            cin >> problemType;
+        }
+        cout << endl;
+
+        // check for quit
+        if (problemType == -1)
+        {
+            quit = true;
+            continue;
+        }
+
+
+        /////////////////////////////////////////////////
+        //
+        // Start Q&A loop
+        //
+        /////////////////////////////////////////////////
+
         // create a new question object
-        Question question(difficulty);
+        Question question(difficulty, problemType);
         
         do
         {
