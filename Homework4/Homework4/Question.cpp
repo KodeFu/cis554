@@ -20,7 +20,41 @@ using std::to_string;
 Question::Question(int difficulty, int problemType)
 	: _difficulty{ difficulty }, _problemType{ problemType }, _left{ 0 }, _right{ 0 }
 {	
+	// check range
+	if (_difficulty < 1 || _difficulty>3)
+	{
+		_difficulty = 1;
+	}
+
+	// check range
+	if (_problemType < 1 || _problemType>5)
+	{
+		_problemType = 1;
+	}
+
+	// seed RNG
 	srand(time(NULL));
+}
+
+// getter and setter difficulty
+int Question::getDifficulty()
+{
+	return _difficulty;
+}
+void Question::setDifficulty(int difficulty)
+{
+	_difficulty = difficulty;
+}
+
+// getter and setter for problem type
+int Question::getProblemType()
+{
+	return _problemType;
+}
+
+void Question::setProblemType(int problemType)
+{
+	_problemType = problemType;
 }
 
 // function to randomize (change) question

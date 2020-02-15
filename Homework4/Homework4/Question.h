@@ -20,6 +20,14 @@ public:
 	// constructor
 	Question(int difficulty, int problemType);
 
+	// getter and setter difficulty
+	int getDifficulty();
+	void setDifficulty(int difficulty);
+
+	// getter and setter for problem type
+	int getProblemType();
+	void setProblemType(int problemType);
+
 	// randomize left and right values
 	void randomizeQuestion();
 

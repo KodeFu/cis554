@@ -144,6 +144,8 @@ int main()
 
         // create a new question object
         Question question(difficulty, problemType);
+
+        cout << "Starting game. Difficulty set to " << question.getDifficulty() << ". Problem type set to " << question.getProblemType() << "." << endl << endl;
         
         do
         {
