@@ -5,14 +5,12 @@
 using std::to_string;
 
 Question::Question(int difficulty)
-	: _difficulty{difficulty}
+	: _difficulty{difficulty}, _left{0}, _right{0}
 {	
 	srand(time(NULL));
-
-	generateRandoms();
 }
 
-void Question::generateRandoms()
+void Question::randomizeQuestion()
 {
 	int digitSizeDivisor;
 
@@ -42,13 +40,6 @@ string Question::getQuestion()
 	return question;
 }
 
-string Question::getNewQuestion()
-{
-	generateRandoms();
-
-	return getQuestion();
-}
-
 bool Question::isAnswerCorrect(int guess)
 {
 	int answer = _left * _right;
@@ -59,4 +50,11 @@ bool Question::isAnswerCorrect(int guess)
 	}
 
 	return false;
+}
+
+int Question::getAnswer()
+{
+	int answer = _left * _right;
+
+	return answer;
 }

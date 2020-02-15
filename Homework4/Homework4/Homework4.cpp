@@ -25,7 +25,7 @@ int main()
     cout << "Hi, I'm CAIB, your Computer-Assisted Instruction Bot!" << endl << endl;
    
 
-    cout << "What's your pleasure, I mean, pain... I mean difficulty (1=easy, 2=moderate, 3=hard)? ";
+    cout << "What's your pain... I mean difficulty (1=easy, 2=moderate, 3=hard)? ";
     cin >> difficulty;
 
     while (cin.fail())
@@ -37,28 +37,37 @@ int main()
     }
 
     // create a new question object
-    Question q(difficulty);
+    Question question(difficulty);
 
-    do {
-        // ask a question
-        cout << q.getQuestion();
+    bool done = false;
+    do
+    {
+        // get a new question, randomized left and right values
+        question.randomizeQuestion();
 
-        // get the answer
-        cin >> answer;
+        do {
+            // ask a question
+            cout << question.getQuestion();
 
-        // double-check cin, in case invalid input was entered
-        while (cin.fail())
-        {
-            // clear previous state
-            cin.clear();
-            cin.ignore(std::numeric_limits<int>::max(), '\n');
-
-            // ask the question again
-            cout << "Answer the question HUMAN! " << q.getQuestion();
+            // get the answer
             cin >> answer;
-        }
-    
-        isCorrect = q.isAnswerCorrect(answer);
-        cout << response.getResponse(isCorrect) << endl;
-    } while (!isCorrect);
+
+            // double-check cin, in case invalid input was entered
+            while (cin.fail())
+            {
+                // clear previous state
+                cin.clear();
+                cin.ignore(std::numeric_limits<int>::max(), '\n');
+
+                // ask the question again
+                cout << "Answer the question HUMAN! " << question.getQuestion();
+                cin >> answer;
+            }
+
+            isCorrect = question.isAnswerCorrect(answer);
+            cout << response.getResponse(isCorrect) << endl;
+
+        } while (!isCorrect);
+
+    } while (!done);
 }
