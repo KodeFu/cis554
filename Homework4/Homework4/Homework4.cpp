@@ -9,6 +9,8 @@ using std::endl;
 
 int main()
 {
+    string input;
+    bool validInput;
     int answer;
     bool isCorrect;
     int difficulty;
@@ -24,7 +26,7 @@ int main()
         bool completedRound = false;
 
         cout << endl;
-        cout << "     \\  /" << endl;
+        cout << "     \\   /" << endl;
         cout << "   *********" << endl;
         cout << "   * O   O *" << endl;
         cout << "   *   ^   *   /--- Bada-beep, bada-boop!" << endl;
@@ -32,59 +34,80 @@ int main()
         cout << "   *********" << endl;
         cout << endl;
         cout << "Hi, I'm CAIB, your Computer-Assisted Instruction Bot!" << endl << endl;
-        cout << "** Please enter -1 at anytime to quit. **" << endl << endl;
+        cout << "     \"Would you like to play a game?\"" << endl << endl;
+        cout << "** Please enter \"quit\" at anytime to quit. **" << endl << endl;
 
         /////////////////////////////////////////////////
         //
         // Get difficulty
         //
         /////////////////////////////////////////////////
-        cout << "What's your pain... I mean difficulty (1=easy, 2=moderate, 3=hard)? ";
-        cin >> difficulty;
-
-        // check for cin 
-        while (cin.fail())
+        validInput = false;
+        do
         {
-            cin.clear();
-            cin.ignore(std::numeric_limits<int>::max(), '\n');
-            cout << "BEEP! Enter 1 for easy, 2 for moderate, or 3 or hard? ";
-            cin >> difficulty;
-        }
-        cout << endl;
+            cout << "What's your pain... I mean difficulty (1=easy, 2=moderate, 3=hard)? ";
+            cin >> input;
+
+            // check for quit
+            if (input == "quit")
+            {
+                quit = true;
+                validInput = true;
+            }
+            else
+            {
+                try {
+                    difficulty = std::stoi(input);
+                    validInput = true;
+                }
+                catch (...)
+                {
+                    cout << "brrrp! ... bad mojo" << endl;
+                }
+            }
+        } while (!validInput);
 
         // check for quit
-        if (difficulty == -1)
+        if (quit)
         {
-            quit = true;
             continue;
         }
-
 
         /////////////////////////////////////////////////
         //
         // Get problem type
         //
         /////////////////////////////////////////////////
-        cout << "What's your problem... type? (1=add, 2=subtract, 3=multiply, 4=divide, 5=random)? ";
-        cin >> problemType;
-
-        // check for cin 
-        while (cin.fail())
+        validInput = false;
+        do
         {
-            cin.clear();
-            cin.ignore(std::numeric_limits<int>::max(), '\n');
-            cout << "BEEP! Enter 1 for add, 2 for subtract, 3 for multiply, 4 for divide, or 5 for random? ";
-            cin >> problemType;
-        }
-        cout << endl;
+            cout << "What's your problem... type? (1=add, 2=subtract, 3=multiply, 4=divide, 5=random)? ";
+            cin >> input;
+
+            // check for quit
+            if (input == "quit")
+            {
+                quit = true;
+                validInput = true;
+            }
+            else
+            {
+                try {
+                    problemType = std::stoi(input);
+                    validInput = true;
+                }
+                catch (...)
+                {
+                    cout << "brrrp! ... bad mojo" << endl;
+                }
+            }
+        } while (!validInput);
 
         // check for quit
-        if (problemType == -1)
+        if (quit)
         {
-            quit = true;
             continue;
         }
-
 
         /////////////////////////////////////////////////
         //
@@ -101,30 +124,37 @@ int main()
             question.randomizeQuestion();
 
             do {
-                // ask a question
-                cout << (answerCount+1) << ". " << question.getQuestion();
 
-                // get the answer
-                cin >> answer;
-                answerCount++;
-
-                // double-check cin, in case invalid input was entered
-                while (cin.fail())
+                validInput = false;
+                do
                 {
-                    // clear previous state
-                    cin.clear();
-                    cin.ignore(std::numeric_limits<int>::max(), '\n');
+                    // ask a question
+                    cout << (answerCount + 1) << ". " << question.getQuestion();
+                    cin >> input;
 
-                    // ask the question again
-                    cout << "Answer the question HUMAN! " << question.getQuestion();
-                    cin >> answer;
-                    answerCount++;
-                }
+                    // check for quit
+                    if (input == "quit")
+                    {
+                        quit = true;
+                        validInput = true;
+                    }
+                    else
+                    {
+                        try {
+                            answer = std::stoi(input);
+                            answerCount++;
+                            validInput = true;
+                        }
+                        catch (...)
+                        {
+                            cout << "brrrp! ... bad mojo" << endl;
+                        }
+                    }
+                } while (!validInput);
 
                 // check for quit
-                if (answer == -1)
+                if (quit)
                 {
-                    quit = true;
                     continue;
                 }
 
