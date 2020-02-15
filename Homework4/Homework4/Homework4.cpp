@@ -50,7 +50,7 @@ int main()
         cout << "   *********" << endl;
         cout << endl;
         cout << "Hi, I'm CAIB, your Computer-Assisted Instruction Bot!" << endl << endl;
-        cout << "     \"Would you like to play a game?\"" << endl << endl;
+        cout << "     \"Shall we play a game?\"" << endl << endl;
         cout << "** Please enter \"quit\" at anytime to quit. **" << endl << endl;
 
         /////////////////////////////////////////////////
