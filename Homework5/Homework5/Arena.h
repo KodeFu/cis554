@@ -4,10 +4,12 @@
 class Arena
 {
 public:
-	Arena(Player playerOne, Player playerTwo);
+	Arena(Player& playerOne, Player& playerTwo);
+	bool doBattle();
 
 private:
-	Player _playerOne;
-	Player _playerTwo;
+	bool _playerOneGoesFirst;
+	Player& _playerOne;
+	Player& _playerTwo;
 };
 

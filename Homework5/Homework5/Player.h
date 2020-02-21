@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
+#include "Dice.h"
 
 using std::string;
 
 class Player
 {
 public:
-	Player();
+	Player(string name, int level);
 
 	// name getter and setter
 	string getName();
@@ -20,11 +21,17 @@ public:
 	int getHitPoints();
 	void setHitPoints(int hitPoints);
 
+	int attack();
+	int defend(int attack);
+
 	virtual void ass();
 
 private:
 	string _name;
 	int _level;
 	int _hitPoints;
+	Dice _dice;
+
+	static const int _baseHitPoints = 10;
 };
 

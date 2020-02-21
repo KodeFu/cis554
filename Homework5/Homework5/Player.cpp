@@ -3,10 +3,10 @@
 using std::cout;
 using std::endl;
 
-Player::Player()
-	: _name {"nomo"}, _level{1}, _hitPoints{100}
+Player::Player(string name, int level)
+	: _name {name}, _level{level}, _hitPoints{level * _baseHitPoints}, _dice{_baseHitPoints}
 {
-	cout << "player constructor" << endl;
+
 }
 
 // name getter and setter
@@ -44,4 +44,49 @@ void Player::setHitPoints(int hitPoints)
 void Player::ass()
 {
 	cout << "base ass" << endl;
+}
+
+int Player::attack()
+{
+	// can only attack up to base hit points
+	_dice.setSides(_baseHitPoints / 2);
+	int damage = _dice.roll();
+
+	cout << _name << " does " << damage << " damage" << endl;
+
+	return damage;
+}
+
+int Player::defend(int attack)
+{
+	// can only defend up to half the base hit points
+	_dice.setSides(_baseHitPoints / 4);
+	int defendRoll = _dice.roll();
+
+	int finalDamage = attack - defendRoll;
+	if (finalDamage < 0)
+	{
+		finalDamage = 0;
+	}
+
+	// adjust hit points based on the damage
+	if (_hitPoints - finalDamage < 0)
+	{
+		_hitPoints = 0;
+	}
+	else
+	{
+		_hitPoints = _hitPoints - finalDamage;
+	}
+
+	cout << _name << " blocks " << defendRoll << " damage and now has " << _hitPoints << " hit points.";
+
+	if (_hitPoints <= 0)
+	{
+		cout << " " << _name << " is now " << " Dead! :-(";
+	}
+	cout << endl;
+
+	// return the defense amount
+	return defendRoll;
 }

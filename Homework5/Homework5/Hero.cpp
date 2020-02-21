@@ -5,11 +5,8 @@ using std::cout;
 using std::endl;
 
 Hero::Hero(string name, int level)
+	: Player(name, level)
 {
-	cout << "hero constructor" << endl;
-
-	setName(name);
-	setLevel(level);
 
 }
 
