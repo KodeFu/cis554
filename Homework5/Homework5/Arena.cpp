@@ -10,6 +10,18 @@ Arena::Arena(Player& playerOne, Player& playerTwo)
 	Dice twoSidedDie(2);
 
 	(twoSidedDie.roll() == 1) ? _playerOneGoesFirst = true : _playerOneGoesFirst = false;
+
+	cout << _playerOneGoesFirst << endl;
+}
+
+void Arena::setPlayerOne(Player& playerOne)
+{
+	_playerOne = playerOne;
+}
+
+void Arena::setPlayerTwo(Player& playerTwo)
+{
+	_playerTwo = playerTwo;
 }
 
 bool Arena::doBattle()
@@ -64,4 +76,10 @@ bool Arena::doBattle()
 
 	// both players are still alive
 	return false;
+}
+
+Arena::finalStats::finalStats()
+	: attacks{ 0 }
+{
+
 }

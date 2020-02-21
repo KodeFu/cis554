@@ -1,11 +1,10 @@
 #include "Dice.h"
 #include <cstdlib>
-#include <ctime>
 
 Dice::Dice(int sides)
 	: _sides{sides}
 {
-	srand(time(NULL));
+
 }
 
 int Dice::getSides()
