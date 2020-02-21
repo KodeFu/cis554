@@ -6,7 +6,6 @@ class Hero :
 {
 public:
 	Hero(string name, int level);
-	virtual void ass();
 
 private:
 	

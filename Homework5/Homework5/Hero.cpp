@@ -9,8 +9,3 @@ Hero::Hero(string name, int level)
 {
 
 }
-
-void Hero::ass()
-{
-	cout << "hero ass" << endl;
-}
