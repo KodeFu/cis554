@@ -1,6 +1,9 @@
 #include "Arena.h"
 #include "Dice.h"
 
+using std::cout;
+using std::endl;
+
 Arena::Arena(Player& playerOne, Player& playerTwo)
 	: _playerOne {playerOne}, _playerTwo {playerTwo}
 {
@@ -27,13 +30,30 @@ bool Arena::doBattle()
 	}
 
 	int firstDamage = first->attack();
+	cout << first->getName() << " does " << firstDamage << " damage." << endl;
+
 	int secondDefense = second->defend(firstDamage);
+	cout << second->getName() << " blocks " << secondDefense << " damage and now has " << second->getHitPoints() << " hit points.";
+	if (second->getHitPoints() <= 0)
+	{
+		cout << " " << second->getName() << " is now " << " Dead! :-(";
+	}
+	cout << endl;
+
 
 	// only continue battle if second player is alive
 	if (second->getHitPoints())
 	{
 		int secondDamage = second->attack();
+		cout << second->getName() << " does " << secondDamage << " damage." << endl;
+
 		int firstDefense = first->defend(secondDamage);
+		cout << first->getName() << " blocks " << firstDefense << " damage and now has " << first->getHitPoints() << " hit points.";
+		if (first->getHitPoints() <= 0)
+		{
+			cout << " " << first->getName() << " is now " << " Dead! :-(";
+		}
+		cout << endl;
 	}
 	
 	// if either player are dead, return true; i.e. dead!

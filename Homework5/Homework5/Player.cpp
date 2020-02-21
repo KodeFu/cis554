@@ -52,8 +52,6 @@ int Player::attack()
 	_dice.setSides(_baseHitPoints / 2);
 	int damage = _dice.roll();
 
-	cout << _name << " does " << damage << " damage" << endl;
-
 	return damage;
 }
 
@@ -78,14 +76,6 @@ int Player::defend(int attack)
 	{
 		_hitPoints = _hitPoints - finalDamage;
 	}
-
-	cout << _name << " blocks " << defendRoll << " damage and now has " << _hitPoints << " hit points.";
-
-	if (_hitPoints <= 0)
-	{
-		cout << " " << _name << " is now " << " Dead! :-(";
-	}
-	cout << endl;
 
 	// return the defense amount
 	return defendRoll;

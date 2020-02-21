@@ -11,32 +11,38 @@ using std::string;
 
 int main()
 {
+    string gameplayMode;
     string playerName;
     int playerLevel;
 
     cout << "Welcome to D&D Arena" << endl << endl;
     cout << "Where victory (or death) awaits!" << endl;
-	/*
-    cout << "What is the hero's name? ";
-    cin >> playerName;
 
-    cout << "Player name? ";
-    cin >> playerLevel;
+    cout << endl;
+    cout << "Manual or auto battle? (\"m\" for manual or \"a\" for auto) ";
+    cin >> gameplayMode;
 
-    Hero hero(playerName, playerLevel);
+    Player p1("Hero", 1);
+    Player p2("Enemy", 1);
 
-    cout << hero.getLevel() << endl;
-    hero.ass();
+    if (gameplayMode == "m")
+    {
+        cout << "What is the hero's name? ";
+        cin >> playerName;
 
-    Player* basePlayer = &hero;
-	*/
-    //basePlayer->ass();
+        cout << "What is the here's level? (1-5) ";
+        cin >> playerLevel;
 
-    //Arena arena(playerName, enemy);
-    //arena.turn();
+        if ((playerLevel < 1) || (playerLevel > 5))
+        {
+            playerLevel = 1;
+        }
 
-	Player p1("hero", 1);
-	Player p2("enemy", 1);
+        p1.setName(playerName);
+        p1.setLevel(playerLevel);
+        p2.setLevel(playerLevel);
+    }
+
 
 	Arena arena(p1, p2);
 
@@ -53,7 +59,6 @@ int main()
 
     cout << "********************************************************" << endl;
     cout << "Final Stats" << endl;
-    cout << endl;
     cout << "Turns: " << turns << endl;
     cout << p1.getName() << endl;
     cout << "  " << "hit points: " << p1.getHitPoints() << endl;
