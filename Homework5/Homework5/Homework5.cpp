@@ -1,36 +1,42 @@
 /*
+    Mudit Vats
+    CIS 554 - M401 Object Oriented Programming in C++
+    Syracuse University
+    HW #5 - 3-tiered object oriented program
+    2 / 23 / 20
 
-This homework required the use of a three-tier architecture for a project of our
-choosing. I chose to implement a D&D style battle arena where a hero and an enemy
-can duke it out for supremancy.
+    This homework required the use of a three-tier architecture for a project of our
+    choosing. I chose to implement a D&D style battle arena where a hero and an enemy
+    can duke it out for supremancy.
 
-The three tiers as in viewed like a Model-View-Controller or Presentation, Logic
-or Data tiers would be described as -
-1. Presentation - main.cpp and Arena.h/cpp. These are main() function which gets
-   input from the user and creates the Arena() class to performs the battles. Some
-   presentation is performed by the Arena() class as well.
-2. Logic - This would be the Arena class which accesses the Player data to 
-   perform the battle actions, including attack and defense.
-3. Data - Player() class in Player.h/.cpp, such as, Hero() class in Hero.h/.cpp, 
-   Dragon() class Dragon.h/.cpp, Troll() class in Troll.h/.cpp, and Orc() class in
-   Orc.h/.cpp.
+    The three tiers as in viewed like a Model-View-Controller or Presentation, Logic
+    or Data tiers would be described as -
+    1. Presentation - main.cpp and Arena.h/cpp. These are main() function which gets
+       input from the user and creates the Arena() class to performs the battles. Some
+       presentation is performed by the Arena() class as well.
+    2. Logic - This would be the Arena class which accesses the Player data to 
+       perform the battle actions, including attack and defense.
+    3. Data - Player() class in Player.h/.cpp, such as, Hero() class in Hero.h/.cpp, 
+       Dragon() class Dragon.h/.cpp, Troll() class in Troll.h/.cpp, and Orc() class in
+       Orc.h/.cpp.
 
- These techniques demonstrated:
- - Pass by value when setting player Name and Level.
- - std::array used to store enemy data (orc, troll, dragon)
- - std::vector shown when battling in "auto" mode. A vector of Arena type is created.
- - For loop used to initialize arena vector.
- - Range-based for loop used to traverse arena vector.
- - Pass by reference is use when players are passed to the Arena constructor so that 
-   Player contents can be modified by Arena.
- - Pass by pointer
+     These techniques demonstrated:
+     - Pass by value when setting player Name and Level.
+     - std::array used to store enemy data (orc, troll, dragon).
+     - std::vector shown when battling in "auto" mode. A vector of Arena type is created.
+     - For loop used to initialize arena vector.
+     - Range-based for loop used to traverse arena vector.
+     - Pass by reference is use when players are passed to the Arena constructor so that 
+       Player contents can be modified by Arena. Also assign references of enemy objects
+       to enemy array.
+     - Pass by pointer
 
- *BONUS* demonstration:
- - Inheritance. Player is the base class for Hero, Dragon, Troll and Orc.
- - Virtual functions are used to provide Hero, Dragon, Troll and Orc specific 
-   attack and defense text. We call the Player objects getAttackText() for 
-   example, which is empty, and if the derivied class has an implementation
-   of the getAttackText() virtual function, it will be executed. Very neat!
+     *BONUS* demonstration:
+     - Inheritance. Player is the base class for Hero, Dragon, Troll and Orc.
+     - Virtual functions are used to provide Hero, Dragon, Troll and Orc specific 
+       attack and defense text. We call the Player objects getAttackText() for 
+       example, which is empty, and if the derivied class has an implementation
+       of the getAttackText() virtual function, it will be executed. Very neat!
 */
 
 #include <iostream>
@@ -55,6 +61,10 @@ using std::array;
 using std::stoi;
 
 const int maximumEnemies = 4; // maximum number of enemies
+
+// show victory message function used to demonstate pointer passing; here
+// arena is an Arena* which gets passed to the function.
+void showVictoryMessages(Arena* arena);
 
 int main()
 {
@@ -179,6 +189,7 @@ int main()
 
         } while (!dead);
 
+        arena.showVictoryMessage();
     }
 
     if (gameplayMode == "a")
@@ -214,8 +225,16 @@ int main()
                 dead = arena->doBattle();
 
             } while (!dead);
+
+            // show victory message
+            showVictoryMessages(arena);
         }
+
     }
+}
 
-
+void showVictoryMessages(Arena* arena)
+{
+    // show the battle banner; i.e. A vs B
+    arena->showVictoryMessage();
 }

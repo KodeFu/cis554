@@ -24,6 +24,7 @@ void Arena::setPlayerTwo(Player& playerTwo)
 
 void Arena::showBattleBanner()
 {
+	cout << "/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/" << endl;
 	cout << "Battle Arena has been set." << endl;
 	cout << _playerOne.getName() << " the " << _playerOne.getType() << " will fight " << _playerTwo.getName() << " the " << _playerTwo.getType() << "." << endl;
 
@@ -73,7 +74,6 @@ bool Arena::doBattle()
 		{
 			cout << " " << first->getName() << " is now Dead! :-(";
 			cout << endl;
-			cout << second->getName() << " is the victor!" << endl;
 		}
 		cout << endl;
 	}
@@ -86,4 +86,19 @@ bool Arena::doBattle()
 
 	// both players are still alive
 	return false;
+}
+
+void Arena::showVictoryMessage()
+{
+	// only continue battle if second player is alive
+	cout << endl;
+	if ( _playerOne.getHitPoints() )
+	{
+		cout << "-->" << _playerOne.getName() << " is the victor, beating " << _playerTwo.getName() << "." << endl;
+	}
+	else if (_playerTwo.getHitPoints())
+	{
+		cout << "-->" << _playerTwo.getName() << " is the victor, beating " << _playerOne.getName() << "." << endl;
+	}
+	cout << endl;
 }

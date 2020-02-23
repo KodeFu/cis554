@@ -12,6 +12,8 @@ public:
 	void showBattleBanner();
 	bool doBattle();
 
+	void showVictoryMessage();
+
 private:
 	bool _playerOneGoesFirst;
 	Player& _playerOne;
