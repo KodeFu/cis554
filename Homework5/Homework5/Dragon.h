@@ -1,19 +1,16 @@
 #pragma once
 #include "Player.h"
 
-class Hero :
+class Dragon :
 	public Player
 {
 public:
-	Hero(string name, int level);
+	Dragon(string name, int level);
 
 	string getType();
 
 	string getAttackText();
 
 	string getDefenseText();
-
-private:
-	
 };
 

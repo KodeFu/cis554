@@ -11,7 +11,10 @@ Arena::Arena(Player& playerOne, Player& playerTwo)
 
 	(twoSidedDie.roll() == 1) ? _playerOneGoesFirst = true : _playerOneGoesFirst = false;
 
-	cout << _playerOneGoesFirst << endl;
+	cout << endl;
+	cout << "Battle Arena has been set." << endl;
+	cout << _playerOne.getName() << " the " << _playerOne.getType() << " will fight " << _playerTwo.getName() << " the " << _playerTwo.getType() << "." << endl;
+	cout << endl;
 }
 
 void Arena::setPlayerOne(Player& playerOne)
@@ -42,13 +45,13 @@ bool Arena::doBattle()
 	}
 
 	int firstDamage = first->attack();
-	cout << first->getName() << " does " << firstDamage << " damage." << endl;
+	cout << first->getAttackText() << first->getName() << " does " << firstDamage << " damage." << endl;
 
 	int secondDefense = second->defend(firstDamage);
-	cout << second->getName() << " blocks " << secondDefense << " damage and now has " << second->getHitPoints() << " hit points.";
+	cout << second->getDefenseText() << second->getName() << " blocks " << secondDefense << " damage and now has " << second->getHitPoints() << " hit points.";
 	if (second->getHitPoints() <= 0)
 	{
-		cout << " " << second->getName() << " is now " << " Dead! :-(";
+		cout << " " << second->getName() << " is now Dead! :-(";
 	}
 	cout << endl;
 
@@ -57,13 +60,15 @@ bool Arena::doBattle()
 	if (second->getHitPoints())
 	{
 		int secondDamage = second->attack();
-		cout << second->getName() << " does " << secondDamage << " damage." << endl;
+		cout << second->getAttackText() << second->getName() << " does " << secondDamage << " damage." << endl;
 
 		int firstDefense = first->defend(secondDamage);
-		cout << first->getName() << " blocks " << firstDefense << " damage and now has " << first->getHitPoints() << " hit points.";
+		cout << first->getDefenseText() << first->getName() << " blocks " << firstDefense << " damage and now has " << first->getHitPoints() << " hit points.";
 		if (first->getHitPoints() <= 0)
 		{
-			cout << " " << first->getName() << " is now " << " Dead! :-(";
+			cout << " " << first->getName() << " is now Dead! :-(";
+			cout << endl;
+			cout << second->getName() << " is the victor!" << endl;
 		}
 		cout << endl;
 	}

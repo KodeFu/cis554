@@ -3,10 +3,21 @@
 using std::cout;
 using std::endl;
 
+Player::Player()
+	: _name{ "" }, _level{ 1 }, _hitPoints{ _baseHitPoints }, _dice{ _baseHitPoints }
+{
+
+}
+
 Player::Player(string name, int level)
 	: _name {name}, _level{level}, _hitPoints{level * _baseHitPoints}, _dice{_baseHitPoints}
 {
 
+}
+
+string Player::getType()
+{
+	return "Human";
 }
 
 // name getter and setter
@@ -41,9 +52,14 @@ void Player::setHitPoints(int hitPoints)
 	_hitPoints = hitPoints;
 }
 
-void Player::ass()
+string Player::getAttackText()
 {
-	cout << "base ass" << endl;
+	return "";
+}
+
+string Player::getDefenseText()
+{
+	return "";
 }
 
 int Player::attack()

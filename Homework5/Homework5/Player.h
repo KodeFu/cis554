@@ -7,11 +7,15 @@ using std::string;
 class Player
 {
 public:
+	Player();
 	Player(string name, int level);
 
 	// name getter and setter
 	string getName();
 	void setName(string name);
+
+	// get type of player (class or race)
+	virtual string getType();
 
 	// level getter and setter
 	int getLevel();
@@ -24,7 +28,8 @@ public:
 	int attack();
 	int defend(int attack);
 
-	virtual void ass();
+	virtual string getAttackText();
+	virtual string getDefenseText();
 
 private:
 	string _name;
