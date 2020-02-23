@@ -1,3 +1,16 @@
+/*
+	Mudit Vats
+	CIS 554 - M401 Object Oriented Programming in C++
+	Syracuse University
+	HW #5 - 3-tiered object oriented program
+	2 / 23 / 20
+
+	This class implements the player class. This class is the base class for
+	many other player types. The common functionality is provided here
+	inlcluding hitpoints, levels, attack and defense. Also, two virtual
+	functions provide the abilty for derived classes to implement their
+	own attack and defense messages.
+*/
 #include "Player.h"
 
 using std::cout;

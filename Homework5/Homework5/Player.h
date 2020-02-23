@@ -1,3 +1,16 @@
+/*
+	Mudit Vats
+	CIS 554 - M401 Object Oriented Programming in C++
+	Syracuse University
+	HW #5 - 3-tiered object oriented program
+	2 / 23 / 20
+
+	This class defines the player class. This class is the base class for
+	many other player types. The common functionality is provided here
+	inlcluding hitpoints, levels, attack and defense. Also, two virtual
+	functions provide the abilty for derived classes to implement their
+	own attack and defense messages.
+*/
 #pragma once
 #include <iostream>
 #include "Dice.h"
@@ -25,21 +38,25 @@ public:
 	int getHitPoints();
 	void setHitPoints(int hitPoints);
 
+	// attack function
 	int attack();
+
+	// defend function
 	int defend(int attack);
 
-	// reset player
+	// reset player to max hitpoints
 	void reset();
 
+	// virtual functions to allow derived classes to customize messages
 	virtual string getAttackText();
 	virtual string getDefenseText();
 
 private:
-	string _name;
-	int _level;
-	int _hitPoints;
-	Dice _dice;
+	string _name;   // player name
+	int _level;     // player level
+	int _hitPoints; // player hitpoints
+	Dice _dice;     // dice used for rolls
 
-	static const int _baseHitPoints = 10;
+	static const int _baseHitPoints = 10; // base hitpoints factor
 };
 

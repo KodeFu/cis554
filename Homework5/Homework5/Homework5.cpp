@@ -22,14 +22,15 @@
 
      These techniques demonstrated:
      - Pass by value when setting player Name and Level.
-     - std::array used to store enemy data (orc, troll, dragon).
+     - std::array used to store enemy data (human, orc, troll, dragon).
      - std::vector shown when battling in "auto" mode. A vector of Arena type is created.
      - For loop used to initialize arena vector.
      - Range-based for loop used to traverse arena vector.
      - Pass by reference is use when players are passed to the Arena constructor so that 
        Player contents can be modified by Arena. Also assign references of enemy objects
        to enemy array.
-     - Pass by pointer
+     - Pass by value shown when initializing Dice. We set side by passing in int value.
+     - Pass by pointer used in showVictoryMessages().
 
      *BONUS* demonstration:
      - Inheritance. Player is the base class for Hero, Dragon, Troll and Orc.
@@ -37,6 +38,10 @@
        attack and defense text. We call the Player objects getAttackText() for 
        example, which is empty, and if the derivied class has an implementation
        of the getAttackText() virtual function, it will be executed. Very neat!
+
+    Note:
+    - Some choices were made to ensure the demonstratbility of the homework 
+      requirements therefore may not be as efficient as can be.
 */
 
 #include <iostream>
