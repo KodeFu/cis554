@@ -38,6 +38,7 @@ or Data tiers would be described as -
 #include <ctime>
 #include <array>
 #include <thread>
+#include <string>
 #include "Player.h"
 #include "Hero.h"
 #include "Dragon.h"
@@ -51,68 +52,126 @@ using std::endl;
 using std::string;
 using std::vector;
 using std::array;
+using std::stoi;
+
+const int maximumEnemies = 4; // maximum number of enemies
 
 int main()
 {
+    string playerName;
+    string input;
+    int playerLevel;
     string gameplayMode;
 
     // initialize PRNG
     srand(time(NULL));
 
     // initialize enemies
-    array<Player *, 4> enemies;
-    enemies[0] = &Player("Jeff", 1);
-    enemies[1] = &Dragon("Don", 1);
-    enemies[2] = &Orc("Ollie", 1);
-    enemies[3] = &Troll("Tommy", 1);
+    array<Player *, 4> enemies;  // allocate pointers to enemies
+
+    // assign refernece to player objects to enemies; could be done 
+    // with new/pointer, but using C++ references here
+    Player player = Player("Evil Jeff", 1);
+    Dragon dragon = Dragon("Deathwing", 1);
+    Orc orc = Orc("Azog the Terrible", 1);
+    Troll troll = Troll("Grendel", 1);
+    enemies.at(0) = &player;
+    enemies.at(1) = &dragon;
+    enemies.at(2) = &orc;
+    enemies.at(3) = &troll;
 
     cout << "Welcome to Ba-Zork Battle Arena Simulation" << endl << endl;
     cout << "Where victory (or death) awaits!" << endl;
-
     cout << endl;
+
 	cout << \
 		"This game allows you to simulate one-on-one battles, D&D style. Attacks and" << endl;
 	cout << \
 		"blocks are random so victory is never a sure thing. You play a Hero who can battle" << endl;
 	cout << \
 		"an Orc, Troll, or, the most vicious, Dragon! Do you have what it takes?" << endl;
-
     cout << endl;
+
     cout << "Manual or auto battle? (\"m\" for manual or \"a\" for auto) ";
     cin >> gameplayMode;
     cout << endl;
 
-    if (gameplayMode == "m")
+    cout << "What is the hero's name? ";
+    cin >> playerName;
+    cout << endl;
+
+    // get hero level
+    bool validInput = false;
+    do
     {
-        string playerName;
-        int playerLevel;
-        Hero p1("Hero", 1);
-        //Dragon p2("Deathwing", 1);
-		Troll p2("Drobney", 1);
+        cout << "What is the hero's level? (1-5) ";
+        cin >> input;
 
-        cout << "What is the hero's name? ";
-        cin >> playerName;
-
-        cout << "What is the here's level? (1-5) ";
-        cin >> playerLevel;
-
-        if ((playerLevel < 1) || (playerLevel > 5))
+        // check if a valid integer
+        try {
+            playerLevel = std::stoi(input);
+            if (playerLevel > 0 && playerLevel <= 5)
+            {
+                validInput = true;
+            }
+        }
+        catch (...)
         {
-            playerLevel = 1;
+            cout << "brrrp! ... bad mojo" << endl;
         }
 
-        p1.setName(playerName);
-        p1.setLevel(playerLevel);
-        p2.setLevel(playerLevel);
+    } while (!validInput);
+    cout << endl;
+    
+    // Set up hero info
+    Hero hero(playerName, playerLevel);
 
-        Arena arena(p1, p2);
+    if (gameplayMode == "m")
+    {
+        int enemyType;        
+     
+
+        // get enemy type
+        bool validInput = false;
+        do
+        {
+            cout << "Who would you like to fight (1=Human, 2=Dragon, 3=Orc, 4=Troll)? ";
+            cin >> input;
+
+            // check if a valid integer
+            try {
+                enemyType = std::stoi(input) - 1;
+                if (enemyType >= 0 && enemyType<4)
+                {
+                    validInput = true;
+                }
+            }
+            catch (...)
+            {
+                cout << "brrrp! ... bad mojo" << endl;
+            }
+
+        } while (!validInput);
+        cout << endl;
+
+        // set enemy level based on player level
+        enemies.at(enemyType)->setLevel(playerLevel);
+
+        // start the arena!
+        Arena arena(hero, *enemies.at(enemyType));
 
         bool dead = false;
         int turns = 0;
+
+        // show the battle banner; i.e. A vs B
+        arena.showBattleBanner();
+
         do {
 
             cout << endl;
             cout << "Turn " << ++turns << endl;
+
+            // battle!
             dead = arena.doBattle();
 
             // sleep for a second to digest battle text
@@ -121,20 +180,17 @@ int main()
         } while (!dead);
 
     }
+
     if (gameplayMode == "a")
     {
         // create several battle arenas
         vector<Arena*> arenaList;
         for (int i = 0; i < 10; i++)
         {
-            // we use pointers here since we need to allocate new players
-            // and new arenas for battle; we don't use static alloction since
-            // player and arena instance data would be retained and we don't
-            // want that.
-            //Player *p1 = new Player("Syd", 1);
-			Hero* p1 = new Hero("Mistress Nancy", 1);
-            Dragon *p2 = new Dragon("Syd the Dragon", 1);
-            Arena *tmp = new Arena(*p1, *p2);
+            // radomize an enemy to fight, also use same level as hero
+            int randomEnemy = rand() % maximumEnemies;
+            enemies.at(randomEnemy)->setLevel(playerLevel);
+            Arena *tmp = new Arena(hero, *enemies.at(randomEnemy));
 
             // add the new arena to the list
             arenaList.push_back(tmp);
@@ -145,10 +201,16 @@ int main()
         {
             bool dead = false;
             int turns = 0;
+          
+            // show the battle banner; i.e. A vs B
+            arena->showBattleBanner();
+
             do {
 
                 cout << endl;
                 cout << "Turn " << ++turns << endl;
+
+                // battle!
                 dead = arena->doBattle();
 
             } while (!dead);

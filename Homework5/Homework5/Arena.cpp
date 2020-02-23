@@ -10,11 +10,6 @@ Arena::Arena(Player& playerOne, Player& playerTwo)
 	Dice twoSidedDie(2);
 
 	(twoSidedDie.roll() == 1) ? _playerOneGoesFirst = true : _playerOneGoesFirst = false;
-
-	cout << endl;
-	cout << "Battle Arena has been set." << endl;
-	cout << _playerOne.getName() << " the " << _playerOne.getType() << " will fight " << _playerTwo.getName() << " the " << _playerTwo.getType() << "." << endl;
-	cout << endl;
 }
 
 void Arena::setPlayerOne(Player& playerOne)
@@ -25,6 +20,15 @@ void Arena::setPlayerOne(Player& playerOne)
 void Arena::setPlayerTwo(Player& playerTwo)
 {
 	_playerTwo = playerTwo;
+}
+
+void Arena::showBattleBanner()
+{
+	cout << "Battle Arena has been set." << endl;
+	cout << _playerOne.getName() << " the " << _playerOne.getType() << " will fight " << _playerTwo.getName() << " the " << _playerTwo.getType() << "." << endl;
+
+	_playerOne.reset();
+	_playerTwo.reset();
 }
 
 bool Arena::doBattle()
@@ -44,6 +48,7 @@ bool Arena::doBattle()
 		second = &_playerOne;
 	}
 
+	cout << first->getName() << ": " << first->getHitPoints() << " - " << second->getName() << ": " << second->getHitPoints() << endl;
 	int firstDamage = first->attack();
 	cout << first->getAttackText() << first->getName() << " does " << firstDamage << " damage." << endl;
 
@@ -81,10 +86,4 @@ bool Arena::doBattle()
 
 	// both players are still alive
 	return false;
-}
-
-Arena::finalStats::finalStats()
-	: attacks{ 0 }
-{
-
 }

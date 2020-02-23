@@ -15,6 +15,11 @@ Player::Player(string name, int level)
 
 }
 
+void Player::reset()
+{
+	_hitPoints = _level * _baseHitPoints;
+}
+
 string Player::getType()
 {
 	return "Human";

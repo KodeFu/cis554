@@ -28,6 +28,9 @@ public:
 	int attack();
 	int defend(int attack);
 
+	// reset player
+	void reset();
+
 	virtual string getAttackText();
 	virtual string getDefenseText();
 

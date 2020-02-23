@@ -9,15 +9,8 @@ public:
 	void setPlayerOne(Player& playerOne);
 	void setPlayerTwo(Player& playerTwo);
 
+	void showBattleBanner();
 	bool doBattle();
-
-	// final stats class
-	class finalStats {
-	public:
-		finalStats();
-		int attacks;
-
-	};
 
 private:
 	bool _playerOneGoesFirst;
