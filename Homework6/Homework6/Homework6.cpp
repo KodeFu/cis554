@@ -20,7 +20,7 @@ using std::endl;
 
 int main()
 {
-    std::cout << "Hello Savings Account Homework!\n";
+    std::cout << "Hello Savings Account Homework!" << endl << endl;
 
     // create two savings accounts
     SavingsAccount saver1(2000.00);
