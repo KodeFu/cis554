@@ -12,13 +12,16 @@ using std::cout;
 
 class loc
 {
+	friend loc operator+=(loc op1, loc op2);
+
 	int longitude, latitude;
 
 public:
 	loc(int lon = 0, int lat = 0);
 	void show();
 	loc operator+(loc op2);
-	loc operator+=(loc op2);
+	//loc operator+=(loc op2);
+	
 };
 
 #endif __LOC_H__
