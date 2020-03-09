@@ -26,3 +26,8 @@ double Student::GetStudentGPA()
 {
 	return gpa;
 }
+
+int Student::GetMemberID() 
+{ 
+	return (CommunityMember::GetMemberID() * 100);
+}

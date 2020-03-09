@@ -11,6 +11,7 @@ public:
 
 	string GetStudentDepartment();
 	double GetStudentGPA();
+	int GetMemberID();
 
 private:
 	string department;
