@@ -76,7 +76,6 @@ int main()
     string playerName;
     string input;
     int playerLevel;
-    string gameplayMode;
 
     // initialize PRNG
     srand(time(NULL));
@@ -105,10 +104,6 @@ int main()
 		"blocks are random so victory is never a sure thing. You play a Hero who can battle" << endl;
 	cout << \
 		"an Orc, Troll, or, the most vicious, Dragon! Do you have what it takes?" << endl;
-    cout << endl;
-
-    cout << "Manual or auto battle? (\"m\" for manual or \"a\" for auto) ";
-    cin >> gameplayMode;
     cout << endl;
 
     cout << "What is the hero's name? ";
@@ -141,101 +136,59 @@ int main()
     // Set up hero info
     Hero hero(playerName, playerLevel);
 
-    if (gameplayMode == "m")
-    {
-        int enemyType;        
+
+    int enemyType;        
      
 
-        // get enemy type
-        bool validInput = false;
-        do
-        {
-            cout << "Who would you like to fight (1=Human, 2=Dragon, 3=Orc, 4=Troll)? ";
-            cin >> input;
-
-            // check if a valid integer
-            try {
-                enemyType = std::stoi(input) - 1;
-                if (enemyType >= 0 && enemyType<4)
-                {
-                    validInput = true;
-                }
-            }
-            catch (...)
-            {
-                cout << "brrrp! ... bad mojo" << endl;
-            }
-
-        } while (!validInput);
-        cout << endl;
-
-        // set enemy level based on player level
-        enemies.at(enemyType)->setLevel(playerLevel);
-
-        // start the arena!
-        Arena arena(hero, *enemies.at(enemyType));
-
-        bool dead = false;
-        int turns = 0;
-
-        // show the battle banner; i.e. A vs B
-        arena.showBattleBanner();
-
-        do {
-
-            cout << endl;
-            cout << "Turn " << ++turns << endl;
-
-            // battle!
-            dead = arena.doBattle();
-
-            // sleep for a second to digest battle text
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-        } while (!dead);
-
-        arena.showVictoryMessage();
-    }
-
-    if (gameplayMode == "a")
+    // get enemy type
+    validInput = false;
+    do
     {
-        // create several battle arenas
-        vector<Arena*> arenaList;
-        for (int i = 0; i < 10; i++)
-        {
-            // radomize an enemy to fight, also use same level as hero
-            int randomEnemy = rand() % maximumEnemies;
-            enemies.at(randomEnemy)->setLevel(playerLevel);
-            Arena *tmp = new Arena(hero, *enemies.at(randomEnemy));
+        cout << "Who would you like to fight (1=Human, 2=Dragon, 3=Orc, 4=Troll)? ";
+        cin >> input;
 
-            // add the new arena to the list
-            arenaList.push_back(tmp);
+        // check if a valid integer
+        try {
+            enemyType = std::stoi(input) - 1;
+            if (enemyType >= 0 && enemyType<4)
+            {
+                validInput = true;
+            }
+        }
+        catch (...)
+        {
+            cout << "brrrp! ... bad mojo" << endl;
         }
 
-        // battle each arena
-        for (Arena* arena : arenaList)
-        {
-            bool dead = false;
-            int turns = 0;
-          
-            // show the battle banner; i.e. A vs B
-            arena->showBattleBanner();
+    } while (!validInput);
+    cout << endl;
 
-            do {
+    // set enemy level based on player level
+    enemies.at(enemyType)->setLevel(playerLevel);
 
-                cout << endl;
-                cout << "Turn " << ++turns << endl;
+    // start the arena!
+    Arena arena(hero, *enemies.at(enemyType));
 
-                // battle!
-                dead = arena->doBattle();
+    bool dead = false;
+    int turns = 0;
 
-            } while (!dead);
+    // show the battle banner; i.e. A vs B
+    arena.showBattleBanner();
 
-            // show victory message
-            showVictoryMessages(arena);
-        }
+    do {
 
-    }
+        cout << endl;
+        cout << "Turn " << ++turns << endl;
+
+        // battle!
+        dead = arena.doBattle();
+
+        // sleep for a second to digest battle text
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    } while (!dead);
+
+    arena.showVictoryMessage();
 }
 
 void showVictoryMessages(Arena* arena)
