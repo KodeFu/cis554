@@ -22,7 +22,7 @@ int main()
 	vector<CommunityMember*> communityMemberVector(2);
 
 	// initialize some CommunityMember objects
-	CommunityMember taylorSwift("Syracuse University", "Taylor", "Swift", 1234);
+	Employee taylorSwift("Syracuse University", "Taylor", "Swift", 1234, "Pop Singer", 2000000);
 	Employee carrieUnderwood("Syracuse University", "Carrie", "Underwood", 5678, "Country Singer", 1000000);
 
 	// re-assign default objects in our vector to our newly created members
