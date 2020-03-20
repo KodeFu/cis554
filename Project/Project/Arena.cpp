@@ -2,8 +2,8 @@
 	Mudit Vats
 	CIS 554 - M401 Object Oriented Programming in C++
 	Syracuse University
-	HW #5 - 3-tiered object oriented program
-	2 / 23 / 20
+	Project
+    3 / 19 / 20
 
 	This class implements the battle arena logic. It brings in the elements
 	of the player data, performs the battles and displays statistics.
@@ -61,16 +61,21 @@ bool Arena::doBattle()
 
 	cout << first->getName() << ": " << first->getHitPoints() << " - " << second->getName() << ": " << second->getHitPoints() << endl;
 	int firstDamage = first->attack();
+
+	// Note, first->getAttackText() will call derived class's getAttackText(), not the base Player class
 	cout << first->getAttackText() << first->getName() << " does " << firstDamage << " damage." << endl;
 
 	int secondDefense = second->defend(firstDamage);
+
+	// Note, first->getDefenseText() will call derived class's getDefenseText(), not the base Player class
 	cout << second->getDefenseText() << second->getName() << " blocks " << secondDefense << " damage and now has " << second->getHitPoints() << " hit points.";
+
+	// output dead status if second player dead
 	if (second->getHitPoints() <= 0)
 	{
 		cout << " " << second->getName() << " is now Dead! :-(";
 	}
 	cout << endl;
-
 
 	// only continue battle if second player is alive
 	if (second->getHitPoints())
@@ -80,6 +85,8 @@ bool Arena::doBattle()
 
 		int firstDefense = first->defend(secondDamage);
 		cout << first->getDefenseText() << first->getName() << " blocks " << firstDefense << " damage and now has " << first->getHitPoints() << " hit points.";
+
+		// output dead status if first player dead
 		if (first->getHitPoints() <= 0)
 		{
 			cout << " " << first->getName() << " is now Dead! :-(";

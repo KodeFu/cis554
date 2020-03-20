@@ -2,46 +2,20 @@
     Mudit Vats
     CIS 554 - M401 Object Oriented Programming in C++
     Syracuse University
-    HW #5 - 3-tiered object oriented program
-    2 / 23 / 20
+    Project
+    3 / 19 / 20
 
-    This homework required the use of a three-tier architecture for a project of our
-    choosing. I chose to implement a D&D style battle arena where a hero and an enemy
-    can duke it out for supremancy.
+    This is the final project.
 
-    The three tiers as in viewed like a Model-View-Controller or Presentation, Logic
-    or Data tiers would be described as -
-    1. Presentation - main.cpp and Arena.h/cpp. These are main() function which gets
-       input from the user and creates the Arena() class to performs the battles. Some
-       presentation is performed by the Arena() class as well.
-    2. Logic - This would be the Arena class which accesses the Player data to 
-       perform the battle actions, including attack and defense.
-    3. Data - Player() class in Player.h/.cpp, such as, Hero() class in Hero.h/.cpp, 
-       Dragon() class Dragon.h/.cpp, Troll() class in Troll.h/.cpp, and Orc() class in
-       Orc.h/.cpp.
+    Final Project Requirements:
+    - A game or program that provides a useful business function that shows the proper usage of inheritance and 
+      polymorphism.
+    - I should be able to write a derived class that fits right into your program and extends your base class, 
+      without any changes being made to the base class.
 
-     These techniques demonstrated:
-     - Pass by value when setting player Name and Level.
-     - std::array used to store enemy data (human, orc, troll, dragon).
-     - std::vector shown when battling in "auto" mode. A vector of Arena type is created.
-     - For loop used to initialize arena vector.
-     - Range-based for loop used to traverse arena vector.
-     - Pass by reference is use when players are passed to the Arena constructor so that 
-       Player contents can be modified by Arena. Also assign references of enemy objects
-       to enemy array.
-     - Pass by value shown when initializing Dice. We set side by passing in int value.
-     - Pass by pointer used in showVictoryMessages().
-
-     *BONUS* demonstration:
-     - Inheritance. Player is the base class for Hero, Dragon, Troll and Orc.
-     - Virtual functions are used to provide Hero, Dragon, Troll and Orc specific 
-       attack and defense text. We call the Player objects getAttackText() for 
-       example, which is empty, and if the derivied class has an implementation
-       of the getAttackText() virtual function, it will be executed. Very neat!
-
-    Note:
-    - Some choices were made to ensure the demonstratbility of the homework 
-      requirements therefore may not be as efficient as can be.
+    In this game, the user can play a Hero which can battle various enemies (to the death!). Each of the enemies 
+    are derived from the Player base class. Further, the derived enemies implement getAttackText() and getDefenseText() 
+    which get called from the base Player class to output enemy specific messages.
 */
 
 #include <iostream>
@@ -62,10 +36,7 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::vector;
-using std::array;
 using std::stoi;
-
-const int maximumEnemies = 4; // maximum number of enemies
 
 // show victory message function used to demonstate pointer passing; here
 // arena is an Arena* which gets passed to the function.
@@ -84,23 +55,18 @@ int main()
     srand(time(NULL));
 
     // initialize enemies
-    vector<Player *> enemies;  // allocate pointers to enemies
-
-    // assign refernece to player objects to enemies; could be done 
-    // with new/pointer, but using C++ references here
-    Player player = Player("Evil Jeff", 1);
-    Dragon dragon = Dragon("Doug the Dragon", 1);
-    Orc orc = Orc("Ollie the Orc", 1);
-    Troll troll = Troll("Tommy the Troll", 1);
+    vector<Player *> enemies; 
 
     // add the various enemies
-    enemies.push_back(&player);
-    enemies.push_back(&dragon);
-    enemies.push_back(&orc);
-    enemies.push_back(&troll);
+    enemies.push_back(new Hero("Evil Jeff", 1));
+    enemies.push_back(new Dragon("Doug", 1));
+    enemies.push_back(new Orc("Ollie", 1));
+    enemies.push_back(new Troll("Tommy", 1));
+    // <-------- Add more enemies here! -------->
+    // <-------- Add more enemies here! -------->
+    // <-------- Add more enemies here! -------->
 
-
-    cout << "Welcome to Battle Arena Simulation" << endl << endl;
+    cout << "Welcome to Battle Arena Simulation" << endl;
     cout << endl;
 
 	cout << "This game allows you to simulate one-on-one battles, role-playing style. Attacks and" << endl;
@@ -143,13 +109,20 @@ int main()
         validInput = false;
         do
         {
-            cout << "Who would you like to fight (1=Human, 2=Dragon, 3=Orc, 4=Troll)? ";
+            cout << "Enemies:" << endl;
+            int i = 1;
+            for (auto enemy : enemies)
+            {
+                // dynamically output the enemy types
+                cout << "  " << i++ << ". " << enemy->getType() << endl;
+            }
+            cout << "Who would you like to fight? ";
             cin >> input;
 
             // check if a valid integer
             try {
                 enemyType = std::stoi(input) - 1;
-                if (enemyType >= 0 && enemyType < 4)
+                if (enemyType >= 0 && enemyType < enemies.size())
                 {
                     validInput = true;
                 }
@@ -216,6 +189,13 @@ int main()
         } while (!validInput);
 
     } while (!done);
+
+    // deallocate enemies
+    for (auto enemy : enemies)
+    {
+        delete enemy;
+    }
+    enemies.clear();
 }
 
 void showVictoryMessages(Arena* arena)
