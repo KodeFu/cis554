@@ -102,13 +102,13 @@ int Player::defend(int attack)
 	}
 
 	// adjust hit points based on the damage
-	if (_hitPoints - finalDamage < 0)
+	if (getHitPoints() - finalDamage < 0)
 	{
-		_hitPoints = 0;
+		setHitPoints(0);
 	}
 	else
 	{
-		_hitPoints = _hitPoints - finalDamage;
+		setHitPoints(getHitPoints() - finalDamage);
 	}
 
 	// return the defense amount
