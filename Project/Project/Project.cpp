@@ -84,7 +84,7 @@ int main()
     srand(time(NULL));
 
     // initialize enemies
-    array<Player *, 4> enemies;  // allocate pointers to enemies
+    vector<Player *> enemies;  // allocate pointers to enemies
 
     // assign refernece to player objects to enemies; could be done 
     // with new/pointer, but using C++ references here
@@ -92,10 +92,13 @@ int main()
     Dragon dragon = Dragon("Doug the Dragon", 1);
     Orc orc = Orc("Ollie the Orc", 1);
     Troll troll = Troll("Tommy the Troll", 1);
-    enemies.at(0) = &player;
-    enemies.at(1) = &dragon;
-    enemies.at(2) = &orc;
-    enemies.at(3) = &troll;
+
+    // add the various enemies
+    enemies.push_back(&player);
+    enemies.push_back(&dragon);
+    enemies.push_back(&orc);
+    enemies.push_back(&troll);
+
 
     cout << "Welcome to Battle Arena Simulation" << endl << endl;
     cout << endl;
