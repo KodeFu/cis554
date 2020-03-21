@@ -27,9 +27,7 @@ public:
 	string getName();
 	void setName(string name);
 
-	// get type of player (class or race)
-	virtual string getType();
-
+	
 	// level getter and setter
 	int getLevel();
 	void setLevel(int level);
@@ -37,6 +35,9 @@ public:
 	// hit point getter and setter
 	int getHitPoints();
 	void setHitPoints(int hitPoints);
+
+	// return base hit points
+	int getBaseHitPoints();
 
 	// attack function
 	int attack();
@@ -47,15 +48,25 @@ public:
 	// reset player to max hitpoints
 	void reset();
 
-	// virtual functions to allow derived classes to customize messages
-	virtual string getAttackText();
-	virtual string getDefenseText();
+	/////////////////////////////////
+	// Virtual Functions
+	/////////////////////////////////
+
+	// get type of player (class or race)
+	virtual string getType() = 0;      // must implement this function
+
+	// special attack
+	virtual int specialAttack();       // optional special attack
+
+	// customize messages
+	virtual string getAttackText();    // optional attack text
+	virtual string getDefenseText();   // optional defense text
 
 private:
-	string _name;   // player name
-	int _level;     // player level
-	int _hitPoints; // player hitpoints
-	Dice _dice;     // dice used for rolls
+	string _name;     // player name
+	int   _level;     // player level
+	int   _hitPoints; // player hitpoints
+	Dice  _dice;      // dice used for rolls
 
 	static const int _baseHitPoints = 10; // base hitpoints factor
 };

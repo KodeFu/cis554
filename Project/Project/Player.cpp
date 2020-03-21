@@ -30,12 +30,7 @@ Player::Player(string name, int level)
 
 void Player::reset()
 {
-	_hitPoints = _level * _baseHitPoints;
-}
-
-string Player::getType()
-{
-	return "Human";
+	setHitPoints(getLevel() * getBaseHitPoints());
 }
 
 // name getter and setter
@@ -70,6 +65,11 @@ void Player::setHitPoints(int hitPoints)
 	_hitPoints = hitPoints;
 }
 
+int Player::getBaseHitPoints()
+{
+	return _baseHitPoints;
+}
+
 string Player::getAttackText()
 {
 	return "";
@@ -83,16 +83,22 @@ string Player::getDefenseText()
 int Player::attack()
 {
 	// can only attack up to base hit points
-	_dice.setSides(_baseHitPoints / 2);
+	_dice.setSides(getBaseHitPoints() / 2);
 	int damage = _dice.roll();
 
 	return damage;
 }
 
+int Player::specialAttack()
+{
+	// by default, no special attack
+	return 0;
+}
+
 int Player::defend(int attack)
 {
 	// can only defend up to half the base hit points
-	_dice.setSides(_baseHitPoints / 4);
+	_dice.setSides(getBaseHitPoints() / 4);
 	int defendRoll = _dice.roll();
 
 	int finalDamage = attack - defendRoll;

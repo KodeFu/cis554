@@ -24,6 +24,22 @@ string Dragon::getType()
 	return "Dragon";
 }
 
+int Dragon::specialAttack()
+{
+	Dice dice(2);
+	if (dice.roll() == 1)
+	{
+		// no special attack
+		return 0;
+	}
+
+	// calculate a special (additional) attack
+	dice.setSides(getBaseHitPoints() / 4);
+	int damage = dice.roll();
+
+	return damage;
+}
+
 string Dragon::getAttackText()
 {
 	string attackText;

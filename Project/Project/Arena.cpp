@@ -62,12 +62,22 @@ bool Arena::doBattle()
 	cout << first->getName() << ": " << first->getHitPoints() << " - " << second->getName() << ": " << second->getHitPoints() << endl;
 	int firstDamage = first->attack();
 
-	// Note, first->getAttackText() will call derived class's getAttackText(), not the base Player class
-	cout << first->getAttackText() << first->getName() << " does " << firstDamage << " damage." << endl;
+	// Note, first->specialAttack() will call derived class's specialAttack(), if available; else base class called
+	int specialAttack = first->specialAttack();
 
+	// Note, first->getAttackText() will call derived class's getAttackText(), if available; else base class called
+	cout << first->getAttackText() << first->getName() << " does " << firstDamage << " damage";
+	if (specialAttack)
+	{
+		cout << " plus " << specialAttack << " special attack damage";
+	}
+	cout << "." << endl;
+
+	// add specialAttack
+	firstDamage += specialAttack;
 	int secondDefense = second->defend(firstDamage);
 
-	// Note, first->getDefenseText() will call derived class's getDefenseText(), not the base Player class
+	// Note, first->getDefenseText() will call derived class's getDefenseText(), if available; else base class called
 	cout << second->getDefenseText() << second->getName() << " blocks " << secondDefense << " damage and now has " << second->getHitPoints() << " hit points.";
 
 	// output dead status if second player dead
@@ -81,7 +91,20 @@ bool Arena::doBattle()
 	if (second->getHitPoints())
 	{
 		int secondDamage = second->attack();
-		cout << second->getAttackText() << second->getName() << " does " << secondDamage << " damage." << endl;
+
+		// Note, second->specialAttack() will call derived class's specialAttack(), if available; else base class called
+		specialAttack = second->specialAttack();
+
+		// Note, second->getAttackText() will call derived class's getAttackText(), if available; else base class called
+		cout << second->getAttackText() << second->getName() << " does " << secondDamage << " damage";
+		if (specialAttack)
+		{
+			cout << " plus " << specialAttack << " special attack damage";
+		}
+		cout << "." << endl;
+
+		// add specialAttack
+		secondDamage += specialAttack;
 
 		int firstDefense = first->defend(secondDamage);
 		cout << first->getDefenseText() << first->getName() << " blocks " << firstDefense << " damage and now has " << first->getHitPoints() << " hit points.";

@@ -19,6 +19,8 @@ public:
 
 	string getType();
 
+	int specialAttack();
+
 	string getAttackText();
 
 	string getDefenseText();
