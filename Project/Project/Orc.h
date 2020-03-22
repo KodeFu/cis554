@@ -16,10 +16,10 @@ class Orc :
 public:
 	Orc(string name, int level);
 
-	string getType();
+	virtual string getType() override;
 
-	string getAttackText();
+	virtual string getAttackText() override;
 
-	string getDefenseText();
+	virtual string getDefenseText() override;
 };
 

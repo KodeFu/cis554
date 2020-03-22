@@ -17,12 +17,12 @@ class Dragon :
 public:
 	Dragon(string name, int level);
 
-	string getType();
+	virtual string getType() override;
 
-	int specialAttack();
+	virtual int specialAttack() override;
 
-	string getAttackText();
+	virtual string getAttackText() override;
 
-	string getDefenseText();
+	virtual string getDefenseText() override;
 };
 
